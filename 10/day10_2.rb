@@ -1,7 +1,5 @@
 #!/bin/ruby
 
-# 0 to low
-
 file = File.new("input.txt", "r")
 
 class BalanceBots
@@ -37,15 +35,14 @@ class BalanceBots
   end
 
   def give_chip_to_output(output, chip)
-    puts "OUTPUTS"
     output = output.to_i
     chip = chip.to_i
 
-    if @outputs[output] == nil
-      @outputs[output] = [chip]
-    else
-      @outputs[output].push(chip)
-    end
+    @outputs[output] = chip
+  end
+
+  def multiplied_output
+    @outputs[0]*@outputs[1]*@outputs[2]
   end
 
   def is_this_the_bot_we_are_looking_for(bot)
@@ -54,7 +51,6 @@ class BalanceBots
       if @bots[bot][0] == 17 && @bots[bot][1] == 61
         @bot_we_are_looking_for = bot
         puts "BOT #{@bot_we_are_looking_for} IS THE ONE"
-        exit
       end
     end
   end
@@ -83,7 +79,7 @@ class BalanceBots
         low = [result[2], result[3]]
         high = [result[4], result[5]]
 
-        puts "bot #{bot}"
+        puts "#{low[0]} #{bot}"
 
         is_this_the_bot_we_are_looking_for(bot)
 
@@ -93,14 +89,12 @@ class BalanceBots
           if low[0] == "bot"
             give_chip_to_bot(low[1], @bots[bot.to_i][0])
           else
-            puts "output"
             give_chip_to_output(low[1], @bots[bot.to_i][0])
           end
 
           if high[0] == "bot"
             give_chip_to_bot(high[1], @bots[bot.to_i][1])
           else
-            puts "output"
             give_chip_to_output(high[1], @bots[bot.to_i][1])
           end
 
@@ -110,8 +104,7 @@ class BalanceBots
         end
       end
     end
-    puts "BOT #{@bot_we_are_looking_for} IS THE ONE"
-    puts @outputs
+    puts "multiplied_output #{multiplied_output}"
   end
 end
 
