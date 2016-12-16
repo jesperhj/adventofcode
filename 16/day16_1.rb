@@ -1,7 +1,5 @@
 #!/bin/ruby
 
-# 11111101111110101111111101011110101111111101111110101011111101011110 high
-
 data = "10011111011011001"
 max_length = 272
 
@@ -31,13 +29,12 @@ end
 
 def get_checksum(data)
   checksum = generate_checksum(data)
-  puts ""
-  puts checksum
-  puts ""
-  return (checksum.length % 2 == 0) ? generate_checksum(checksum) : checksum
+  while (checksum.length % 2 == 0)
+    checksum = generate_checksum(checksum)
+  end
+  return checksum
 end
 
 data = generate_random_data(data, max_length)
-puts "data #{data}"
 checksum = get_checksum(data)
 puts "checksum #{checksum}"
