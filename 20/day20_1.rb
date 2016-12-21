@@ -12,11 +12,10 @@ file.close
 
 lowest_number = 0
 lines.sort.each do |line|
-  puts "#{lowest_number} - #{line}"
   if lowest_number >= line[0] && lowest_number <= line[1]
     lowest_number = line[1]+1
   elsif lowest_number < line[0]
-    puts "Loweset number #{lowest_number}"
+    puts lowest_number
     break
   end
 end
