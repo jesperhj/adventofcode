@@ -8,10 +8,15 @@ class ScramblePassword
   end
 
   def swap_position(x,y)
-    puts "swap x #{x} with y #{y}"
+    temp = @password[x]
+    @password[x] = @password[y]
+    @password[y] = temp
   end
 
   def swap_letter(x,y)
+    (0..@password.length-1).each do |i|
+      if @password[]
+    end
     puts "swap letter #{x} with #{y}"
   end
 
@@ -34,6 +39,7 @@ class ScramblePassword
   def parse_file
     file = File.new(@input_file, "r")
     while (line = file.gets)
+      puts @password
       if res = /^swap position (\d+) with position (\d+)/.match(line)
         swap_position(res[1].to_i, res[2].to_i)
       elsif res = /^swap letter (\w+) with letter (\w+)/.match(line)
@@ -47,6 +53,8 @@ class ScramblePassword
       elsif res = /^move position (\d+) to position (\d+)/.match(line)
         move_position(res[1].to_i, res[2].to_i)
       end
+      puts @password
+      puts ""
     end
     file.close
   end
