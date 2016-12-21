@@ -1,1 +1,18 @@
 (6x1)(1x3)A
+
+
+X(8x2)(3x3)ABCY
+X(3x3)ABC(3x3)ABC
+XABCABCABCABCABCABCY
+XABCABCABCABCABCABCY 20
+
+X(8x2)(3x3)ABCY
+x 2*(3x3)ABCY
+X2*3*3Y
+1+2*3*3+1 = 1 + 18 + 1 = 20
+
+hitta marker
+  ta ut multiplier
+  finns marker inuti
+    hitta marker
+

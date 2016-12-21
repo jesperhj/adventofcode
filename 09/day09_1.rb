@@ -16,7 +16,7 @@ end
 decompression_length = 0
 marker_states = [:length_to_repeat, :times_to_repeat, :getting_chars_to_repeat, :looking_for_marker]
 
-file = File.new("input.txt", "r")
+file = File.new("input_test.txt", "r")
 while (line = file.gets)
   puts line
 
@@ -61,7 +61,7 @@ while (line = file.gets)
     (1..times_to_repeat.to_i).each { decompressed_line += chars_to_repeat }
   end
   #puts decompressed_line
-  #puts decompressed_line.length
+  puts decompressed_line.length
   decompression_length += decompressed_line.length
 end
 file.close

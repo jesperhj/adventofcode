@@ -19,7 +19,11 @@ class RTG
     @floors[3]["generator"].empty? && @floors[3]["microchip"].empty?
   end
 
-  def get_input
+  def print_floors
+    @floors.each { |k,v| puts "#{k} #{v}" }
+  end
+
+  def load_input
     file = File.new(@input_file, "r")
     while (line = file.gets)
       res = /The (\w+) floor contains (.*)/.match(line)
@@ -36,14 +40,10 @@ class RTG
   end
 
   def solve
-    get_input
-    puts "#{@floors}"
-
-    #while !finished?
-    #end
-
+    print_floors
   end
 end
 
 rtg = RTG.new
+rtg.load_input
 rtg.solve
