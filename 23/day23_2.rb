@@ -9,7 +9,7 @@ class SafeCracking
     @instructions = {}
     @position = 0
     @register = {
-      "a" => 7,
+      "a" => 12,
       "b" => 0,
       "c" => 0,
       "d" => 0
@@ -42,7 +42,6 @@ class SafeCracking
       steps = y.to_i == 0 ? @register[y] : y.to_i
       @position += steps
     else
-      puts "B"
       @position += 1
     end
   end
@@ -57,36 +56,25 @@ class SafeCracking
       return
     end
 
-    #puts "\n@position #{@position} position #{position}"
-    #puts "l: #{@instructions.length} #{@instructions}"
-
     if instruction != nil
       case instruction[:instruction]
       when :cpy
-        puts "#{position} switching cpy to jnz"
         @instructions[position] = {:instruction => :jnz, :params => [instruction[:params][0],instruction[:params][1]]}
       when :inc
-        puts "#{position} switching inc to dec"
         @instructions[position] = {:instruction => :dec, :params => [instruction[:params][0]]}
       when :dec
-        puts "#{position} switching dec to inc"
         @instructions[position] = {:instruction => :inc, :params => [instruction[:params][0]]}
       when :jnz
-        puts "#{position} switching jnz to cpy"
         @instructions[position] = {:instruction => :cpy, :params => [instruction[:params][0],instruction[:params][1]]}
       when :tgl
-        puts "#{position} switching tgl to inc"
         @instructions[position] = {:instruction => :inc, :params => [instruction[:params][0]]}
       end
     end
 
-    #puts "l: #{@instructions.length} #{@instructions}"
-    #puts "--\n"
   end
 
   def follow_instruction
     instruction = @instructions[@position]
-    puts "pos #{@position}  ins #{instruction}"
 
     if instruction != nil
       case instruction[:instruction]
@@ -146,11 +134,11 @@ class SafeCracking
     i = 0
     while @position < @instructions.length
       follow_instruction
-      puts "#{i} pos #{@position}"
-      puts "#{@register}"
-      puts "."
+      if i % 1000000 == 0
+        puts "#{i} pos #{@position}"
+        puts "#{@register}\n\n"
+      end
       i += 1
-      #break if i > 500
     end
 
     puts @register
