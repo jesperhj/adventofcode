@@ -1,11 +1,11 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"log"
-	"os"
-	"strconv"
+  "bufio"
+  "fmt"
+  "log"
+  "os"
+  "strconv"
 )
 
 func main() {
@@ -43,4 +43,4 @@ func main() {
   }
 
 
- }
+}
