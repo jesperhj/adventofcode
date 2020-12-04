@@ -1,4 +1,3 @@
-new_passport = true
 lines = []
 l = ""
 file = File.new("input.txt", "r")
