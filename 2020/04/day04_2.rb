@@ -21,18 +21,18 @@ lines.each do |l|
       field = f.split(":")
       case field[0]
         when "byr"
-          is_valid = false if field[1].to_i < 1920 or field[1].to_i > 2002
+          is_valid = false if field[1].to_i < 1920 || field[1].to_i > 2002
         when "iyr"
-          is_valid = false if field[1].to_i < 2010 or field[1].to_i > 2020
+          is_valid = false if field[1].to_i < 2010 || field[1].to_i > 2020
         when "eyr"
-          is_valid = false if field[1].to_i < 2020 or field[1].to_i > 2030
+          is_valid = false if field[1].to_i < 2020 || field[1].to_i > 2030
         when "hgt"
           res = /(\d+)(.*)/.match(field[1])
           if res.length == 3
             height = res[1].to_i
             unit = res[2]
-            is_valid = false unless (unit == "cm" and height <= 193 and height >= 150) or 
-            (unit == "in" and height <= 76 and height >= 59)
+            is_valid = false unless (unit == "cm" && height <= 193 && height >= 150) ||
+            (unit == "in" && height <= 76 && height >= 59)
           else
             is_valid = false
           end             
