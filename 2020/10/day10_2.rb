@@ -2,7 +2,7 @@ class AdapterArray
 
   def initialize()    
     @input_file = "input.txt"
-    @adapters = []
+    @adapters = [0]
     @c = {}
   end
 
@@ -12,40 +12,27 @@ class AdapterArray
       @adapters.push(line.to_i)
     end
     file.close
-    @adapters << 0
     @adapters.sort!
   end
 
-  def find_arrangements(i, paths)
-      
-    if i >= @adapters.length-1
-      return 1
-    end
-    if i+1 <= @adapters.length-1 && (@adapters[i+1] - @adapters[i] <= 3)      
-      paths = find_arrangements(i+1, paths) 
-    end
-    if i+2 <= @adapters.length-1 && (@adapters[i+2] - @adapters[i] <= 3)
-      if @c.keys.include? @adapters[i+2]
-        paths += @c[@adapters[i+2]]
-      else
-        paths += find_arrangements(i+2, paths)
-      end
-    end
-    if i+3 <= @adapters.length-1 && (@adapters[i+3] - @adapters[i] <= 3)
-       if @c.keys.include? @adapters[i+3]
-        paths += @c[@adapters[i+3]]        
-      else
-        paths += find_arrangements(i+3, paths)
-      end
-    end
+  def find_arrangements(pos, paths)
+    # Return if we hit the end or have things cached
+    return @c[pos] if @c.keys.include? pos   
+    return 1       if pos >= @adapters.length-1
 
-    @c[@adapters[i]] = paths
+    # Continue down the paths if we are not going out of bound
+    (pos+1..pos+3).each do |j|      
+      if j <= @adapters.length-1 && (@adapters[j] - @adapters[pos] <= 3)    
+        paths += find_arrangements(j, paths)
+      end
+    end
+    
+    @c[pos] = paths # cache result
+
     return paths
   end
 end
 
 aa = AdapterArray.new()
 aa.get_input
-arr = aa.find_arrangements(0, 0)
-
-puts arr
+puts aa.find_arrangements(0, 0)
