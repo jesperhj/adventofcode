@@ -1,5 +1,4 @@
 class AdapterArray
-
   def initialize()    
     @input_file = "input.txt"
     @adapters = [0]
@@ -26,7 +25,7 @@ class AdapterArray
         paths += find_arrangements(j, paths)
       end
     end
-    
+
     @c[pos] = paths # cache result
 
     return paths
