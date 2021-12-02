@@ -8,7 +8,7 @@ file.close
 increases      = 0
 previous_depth = nil
 
-report.each do |depth|  
+report.each do |depth|
   if !previous_depth.nil? && depth > previous_depth
     increases += 1
   end
