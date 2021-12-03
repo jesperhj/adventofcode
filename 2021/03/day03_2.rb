@@ -9,22 +9,13 @@ file.close
 oxygen = report.clone()
 i = 0
 while oxygen.length > 1
-  oxygen_left = []
-  sum_of_bits = 0
+  # get sum of bit i
+  sum_of_bits = oxygen.sum { |j| j[i].to_i }
 
-  for j in 0..oxygen.length-1
-    sum_of_bits += oxygen[j][i].to_i
-  end
-
+  # filter based on if 1 or 0 occured the most in bit i
   bit = sum_of_bits >= (oxygen.length/2.to_f).ceil ? 1 : 0
-
-  for j in 0..oxygen.length-1       
-    if oxygen[j][i].to_i == bit
-      oxygen_left.push(oxygen[j])
-    end    
-  end
-
-  oxygen = oxygen_left
+  oxygen.reject! {|j| j[i].to_i != bit} 
+  
   i += 1  
 end
 
@@ -32,25 +23,17 @@ end
 co2 = report.clone()
 i = 0
 while co2.length > 1
-  co2_left = []
-  sum_of_bits = 0
+  # get sum of bit i
+  sum_of_bits = co2.sum { |j| j[i].to_i }
 
-  for j in 0..co2.length-1
-    sum_of_bits += co2[j][i].to_i
-  end
-
+  # filter based on if 1 or 0 occured the most in bit i
   bit = sum_of_bits >= (co2.length/2.to_f).ceil ? 0 : 1
+  co2.reject! {|j| j[i].to_i != bit}
 
-  for j in 0..co2.length-1       
-    if co2[j][i].to_i == bit
-      co2_left.push(co2[j])
-    end    
-  end
-
-  co2 = co2_left
   i += 1  
 end
 
+# multiply the two numbers in base 10
 res = oxygen[0].to_i(2)*co2[0].to_i(2)
 puts res
 
