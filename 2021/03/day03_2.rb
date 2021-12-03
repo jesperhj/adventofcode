@@ -10,7 +10,7 @@ oxygen = report.clone()
 i = 0
 while oxygen.length > 1
   # get sum of bit i
-  sum_of_bits = oxygen.sum { |j| j[i].to_i }
+  sum_of_bits = oxygen.sum {|j| j[i].to_i}
 
   # filter based on if 1 or 0 occured the most in bit i
   bit = sum_of_bits >= (oxygen.length/2.to_f).ceil ? 1 : 0
@@ -24,7 +24,7 @@ co2 = report.clone()
 i = 0
 while co2.length > 1
   # get sum of bit i
-  sum_of_bits = co2.sum { |j| j[i].to_i }
+  sum_of_bits = co2.sum {|j| j[i].to_i}
 
   # filter based on if 1 or 0 occured the most in bit i
   bit = sum_of_bits >= (co2.length/2.to_f).ceil ? 0 : 1
