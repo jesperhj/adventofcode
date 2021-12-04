@@ -12,17 +12,17 @@ class BingoCard
     @drawn_numbers.push(drawn_number)
 
     return true if self.check_rows()
-    #return true if self.check_columns()
+    return true if self.check_columns()
     return false
   end
 
   def check_columns
     for i in 0..4
-      found_column = false
+      found_columns = 0
       @lines.each do |l|
-        next if !@drawn_numbers.include?(l[i])
+        found_columns += 1 if @drawn_numbers.include?(l[i])
       end
-      return true # we should only get here if all 5 matched
+      return true if found_columns == 5
     end
     return false
   end
@@ -35,11 +35,7 @@ class BingoCard
   end
 
   def get_sum_of_unmarked_numbers
-    puts @lines.flatten.join(",")
-    puts @drawn_numbers.join(",")
-    puts "**"
-    sum = (@lines.flatten-@drawn_numbers).sum {|i| i.to_i}
-    return sum
+    return (@lines.flatten-@drawn_numbers).sum {|i| i.to_i}
   end
 
   def print
@@ -52,7 +48,7 @@ end
 
 class BingoSubystem
   def initialize()    
-    @input_file    = "input_test.txt"
+    @input_file    = "input.txt"
     @balls         = []
     @cards         = []
     @drawn_numbers = []
