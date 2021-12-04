@@ -1,24 +1,61 @@
 class BingoCard
   def initialize()    
-    @squares = []    
+    @lines         = []
+    @drawn_numbers = []
   end
 
   def add_line(line)
-    @squares.push(line.split.to_a)
+    @lines.push(line.split.to_a)
+  end
+
+  def check_for_bingo(drawn_number)
+    @drawn_numbers.push(drawn_number)
+
+    return true if self.check_rows()
+    #return true if self.check_columns()
+    return false
+  end
+
+  def check_columns
+    for i in 0..4
+      found_column = false
+      @lines.each do |l|
+        next if !@drawn_numbers.include?(l[i])
+      end
+      return true # we should only get here if all 5 matched
+    end
+    return false
+  end
+
+  def check_rows
+    @lines.each do |l|
+      return true if (l-@drawn_numbers).empty?
+    end
+    return false
+  end
+
+  def get_sum_of_unmarked_numbers
+    puts @lines.flatten.join(",")
+    puts @drawn_numbers.join(",")
+    puts "**"
+    sum = (@lines.flatten-@drawn_numbers).sum {|i| i.to_i}
+    return sum
   end
 
   def print
-    @squares.each do |s|
+    @lines.each do |s|
       puts s.join(" ")
     end
   end
+
 end
 
 class BingoSubystem
   def initialize()    
-    @input_file = "input_test.txt"
-    @balls      = []
-    @cards      = []    
+    @input_file    = "input_test.txt"
+    @balls         = []
+    @cards         = []
+    @drawn_numbers = []
   end
 
   def get_input
@@ -26,7 +63,7 @@ class BingoSubystem
     i = 0
     # get bingo balls aka the numbers
     line = file.gets
-    @bingo_balls = line.split(",")
+    @balls = line.split(",")
 
     # get bingo cards
     while (line = file.gets)
@@ -39,10 +76,21 @@ class BingoSubystem
     file.close
   end
 
+  def draw_number
+    @drawn_numbers.push(@balls.shift)
+  end
+
   def play
-    @cards.each do |c|
-      c.print()
-      puts "-"
+    while !@balls.empty?
+      self.draw_number()
+
+      @cards.each do |c|
+        if c.check_for_bingo(@drawn_numbers.last)
+          res = c.get_sum_of_unmarked_numbers * @drawn_numbers.last.to_i
+          puts res
+          return
+        end
+      end
     end
   end
 end
