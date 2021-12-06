@@ -11,23 +11,20 @@ class Lanternfish
     file.close    
   end
   
-  def solve
-    puts @lanterns.join(",")
-    
+  def solve   
     (0..@days-1).each do |d|
-      new_lanters = []
+      new_lanterns = []
       for i in 0..@lanterns.length-1
         if @lanterns[i] == 0
           @lanterns[i] = 6
-          new_lanters.push(8)
+          new_lanterns.push(8)
         else
           @lanterns[i] -= 1
         end
       end
 
-      @lanterns = @lanterns.concat(new_lanters)
-    end
-    
+      @lanterns = @lanterns.concat(new_lanterns)
+    end    
     
     puts @lanterns.count
   end
