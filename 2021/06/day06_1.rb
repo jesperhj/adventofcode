@@ -1,7 +1,7 @@
 class Lanternfish
   def initialize()
     @lanterns = []    
-    @days     = 256
+    @days     = 80
     self.get_input    
   end
   
