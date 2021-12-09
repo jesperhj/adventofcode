@@ -1,4 +1,3 @@
-# 1901 too high
 class SmokeBasin
   def initialize()
     @tubes      = []
