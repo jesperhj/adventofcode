@@ -1,9 +1,9 @@
-# 599256 too low
 class SmokeBasin
   def initialize()
     @tubes      = []
     @low_points = []
     @basins     = []
+    @tracked    = []
     self.get_input
   end
 
@@ -16,20 +16,19 @@ class SmokeBasin
   end
 
   def calculate_basin(i,j,nr,tracked)
-    return nr if @tubes[i][j] == 9 || tracked.include?(i.to_s+":"+j.to_s)
-    puts "#{i}:#{j}-#{@tubes[i][j]} ##{nr}"
+    return nr if @tubes[i][j] == 9 || tracked.include?(i.to_s+":"+j.to_s)    
     nr += 1
     tracked.push i.to_s+":"+j.to_s
-    if i > 0 && @tubes[i][j]+1 == @tubes[i-1][j]
+    if i > 0 && @tubes[i][j]+1 <= @tubes[i-1][j]
       nr = self.calculate_basin(i-1,j,nr,tracked)
     end
-    if i < @tubes.length-1 && @tubes[i][j]+1 == @tubes[i+1][j]
+    if i < @tubes.length-1 && @tubes[i][j]+1 <= @tubes[i+1][j]
       nr = self.calculate_basin(i+1,j,nr,tracked)
     end
-    if j > 0 && @tubes[i][j]+1 == @tubes[i][j-1]
+    if j > 0 && @tubes[i][j]+1 <= @tubes[i][j-1]
       nr = self.calculate_basin(i,j-1,nr,tracked)
     end
-    if j < @tubes[i].length-1 && @tubes[i][j]+1 == @tubes[i][j+1]
+    if j < @tubes[i].length-1 && @tubes[i][j]+1 <= @tubes[i][j+1]
       nr = self.calculate_basin(i,j+1,nr,tracked)
     end
     return nr
@@ -45,15 +44,12 @@ class SmokeBasin
         is_low = false if j < @tubes[i].length-1 && @tubes[i][j] >= @tubes[i][j+1]
         if is_low
           @low_points.push @tubes[i][j]
-          @basins.push self.calculate_basin(i,j,0,[])
-          puts ""
+          @tracked = []
+          @basins.push self.calculate_basin(i,j,0,@tracked)
         end
       end
     end
-    puts @basins.join(",")
-    puts @basins.sort.join("-")
     puts @basins.sort.last(3).inject(:*)
-    puts "#{@low_points.length} : #{@basins.length}"
   end
 end
 
